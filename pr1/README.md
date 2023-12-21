@@ -164,4 +164,177 @@ z * 2 + 1000
 
     [1] 1002.20 1018.00 1006.28
 
-### Урок 2: Основные блоки программирования на языке R
+### Урок 2: Рабочее пространство и файлы
+
+Определим, какой каталог использует сеанс R в качестве текущего рабочего
+каталога, используя `getcwd()`.
+
+``` r
+getwd()
+```
+
+    [1] "C:/Users/Kalba/OneDrive/Рабочий стол/Долума/sem7_tt/Lab1/pr1"
+
+Перечислим все объекты в локальной рабочей области, используя `ls()`
+
+``` r
+ls()
+```
+
+    [1] "has_annotations" "my_div"          "my_sqrt"         "x"              
+    [5] "y"               "z"              
+
+Присвоим 9 переменной `x`, используя `x <- 9`.
+
+``` r
+x <- 9
+```
+
+Перечислите все файлы в вашем рабочем каталоге, используя
+`list.files()`.
+
+``` r
+list.files()
+```
+
+    [1] "lab1.qmd"       "lab1.rmarkdown" "Lab1.Rproj"     "README.md"     
+    [5] "testdir"       
+
+Также можно использоваться `dir()`.
+
+``` r
+dir()
+```
+
+    [1] "lab1.qmd"       "lab1.rmarkdown" "Lab1.Rproj"     "README.md"     
+    [5] "testdir"       
+
+Использованую функцию `args()` можно увидеть, какие аргументы может
+принимать функция.
+
+``` r
+args(list.files)
+```
+
+    function (path = ".", pattern = NULL, all.files = FALSE, full.names = FALSE, 
+        recursive = FALSE, ignore.case = FALSE, include.dirs = FALSE, 
+        no.. = FALSE) 
+    NULL
+
+Зададим в переменную `old.dir` нашу рабочую директорию. Это нужно, чтобы
+в конце к ней вернуться.
+
+``` r
+old.dir <- getwd()
+old.dir
+```
+
+    [1] "C:/Users/Kalba/OneDrive/Рабочий стол/Долума/sem7_tt/Lab1/pr1"
+
+Посмотрим документацию команды `dir.create` с помощью вопросительного
+знака.
+
+``` r
+?dir.create
+```
+
+С помощью команды `dir.create()` создадим новый директорий с именем
+`testdir` в уже существующий. Чтобы работать в этой директории, надо
+задать её как рабочую с помощью команды `setwd()`.
+
+Создадим файл `mytest.R`, используя функцию `file.create()` и проверим,
+какие файлы у нас лежат в новой директории. Чтобы проверить, существует
+ли `mytest.R` в рабочей директории, используем команду `file.exists()`.
+Посмотрим информацию о файле `mytest.R`, используя команду
+`file.info()`.
+
+Переименуем файл `mytest.R` в `mytest2.R`, используя команду
+`file.rename()`. Сделаем копию файла `mytest2.R` и назовём копию
+`mytest3.R`, используя команду `file.copy()`. Укажем родительский путь к
+файлу `mytest3.R`, используя команду `file.path()`.
+
+Можно использовать `file.path()` для построения путей к файлам и
+каталогам, которые не зависят от операционной системы, в которой
+выполняется наш R-код. Передадим `folder1` и `folder2` в качестве
+аргументов для создания независимого от платформы имени пути.
+
+Создадим новый директорий в нашей рабочей директории и назовём его
+`testdir2`, а также создадим сабдиректорий и назовём его `testdir3`,
+используя только команды `dir.create()` и `file.path()`. Вернёмся
+обратно в рабочую директорию на компьютере, с помощью команды `setwd()`.
+Вспомним, что ранее мы заносили её в переменную `old.dir`.
+
+``` r
+dir.create("testdir")
+```
+
+    Warning in dir.create("testdir"): 'testdir' already exists
+
+``` r
+setwd("testdir")
+getwd()
+```
+
+    [1] "C:/Users/Kalba/OneDrive/Рабочий стол/Долума/sem7_tt/Lab1/pr1/testdir"
+
+``` r
+file.create("mytest.R")
+```
+
+    [1] TRUE
+
+``` r
+dir()
+```
+
+    [1] "mytest.R"  "mytest2.R" "mytest3.R" "testdir2" 
+
+``` r
+file.exists("mytest.R")
+```
+
+    [1] TRUE
+
+``` r
+file.info("mytest.R")
+```
+
+             size isdir mode               mtime               ctime
+    mytest.R    0 FALSE  666 2023-12-21 20:50:15 2023-12-21 20:50:15
+                           atime exe
+    mytest.R 2023-12-21 20:50:15  no
+
+``` r
+file.rename("mytest.R", "mytest2.R")
+```
+
+    [1] TRUE
+
+``` r
+file.copy("mytest2.R", "mytest3.R")
+```
+
+    [1] FALSE
+
+``` r
+file.path("mytest3.R")
+```
+
+    [1] "mytest3.R"
+
+``` r
+file.path("folder1", "folder2")
+```
+
+    [1] "folder1/folder2"
+
+``` r
+dir.create(file.path('testdir2', 'testdir3'), recursive = TRUE)
+```
+
+    Warning in dir.create(file.path("testdir2", "testdir3"), recursive = TRUE):
+    'testdir2\testdir3' already exists
+
+``` r
+setwd(old.dir)
+```
