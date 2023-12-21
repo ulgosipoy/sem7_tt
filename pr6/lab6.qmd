@@ -1,0 +1,8 @@
+---
+title: "Практическое работа 6"
+author: "БИСО-01-20 Калбак"
+format: 
+  md:
+    output-file: README.md
+---
+
